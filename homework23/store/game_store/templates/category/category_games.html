@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{category}}{% endblock %}
+{% block content %}
+<code>
+{% for game in games %}
+    <div class="container text-center my-5">
+        <h1 class="fw-light">Жанр: {{category.title}}</h1><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <img style="width: 500px; height: 600px; object-fit: cover;" src={{game.game_image.url}} alt={{game.name}}/>
+                <div>
+                    <br>
+                    <strong><a href="{% url 'game:game_slug' game_slug=game.slug %}">{{game.name}}</a></strong><br>
+                    <hr>
+                </div>
+                <br>
+                <strong><h5>Описание:</h5></strong>
+                <p>{{game.description}}</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</code>
+{% endblock %}
