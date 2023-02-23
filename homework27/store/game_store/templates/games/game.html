@@ -1,0 +1,41 @@
+{% extends  'base.html'%}
+{% load static %}
+{% block title %}{{game.name}}{% endblock %}
+
+{% block content %}
+<code>
+    <div class="container my-5">
+        <h1 class="fw-light">{{game.name}}</h1><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <img class="rounded" style="width: 500px; height: 600px; object-fit: cover;" src={{game.game_image.url}} alt={{game.name}}/>
+                <div>
+                    <br>
+                    <h5>{{game.name}}</h5><br>
+                    <h6>Оценка игры: {{average_grade|floatformat:1}}</h6>
+                    <strong>Жанры:</strong>
+                    {{game.category}}<br>
+                    <strong>Цена:</strong>
+                    {{game.price}}
+                    <strong>руб</strong><br>
+                    <strong>Дата выхода:</strong>
+                    {{game.release_date|date:"d F, Y."}}<hr>
+                </div>
+                <br>
+                <strong><h5>Описание:</h5></strong>
+                <p>{{game.description|safe}}</p>
+                <a href="{% url 'game:comment_add' game_slug=game.slug %}">Оставить комментарий</a><br>
+                <h2>{{ comments.count }} comments</h2>
+                {% for comment in comments %}
+                    <li>{{comment.name}}</li>
+                    {{comment.text | linebreaks}} 
+                    <a href="{% url 'game:comment_update' comment.id %}">Изменить комментарий</a>
+                    |
+                    <a href="{% url 'game:comment_delete' comment.id %}">Удалить комментарий</a>
+                {% endfor %}
+                <hr>
+            </div>
+        </div>
+    </div>
+</code>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<code>
+{% for category in categories %}
+<div class="container text-center my-5">
+    <h1 class="fw-light"><a href="{% url 'game:category_games' category_slug=category.slug %}">{{category}}</a></h1>
+    <br><br>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <strong><h5>Описание:</h5></strong>
+            <p>{{category.description|safe}}</p>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</code>
+{% endblock %}

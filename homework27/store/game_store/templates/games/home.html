@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Games{% endblock %}
+
+{% block content %}
+<code>
+    {% for game in games %}
+            <img class="rounded" style="width: 450px; height: 485px; object-fit: cover;" src={{game.game_image.url}} alt="Name" />
+            <br><br>
+            <h5><a href="{% url 'game:game_slug' game_slug=game.slug %}">{{game.name}}</a></h5>
+            <li>Жанр: {{game.category}}</li>
+            <li>Цена: {{game.price}} руб</li>
+            <li>Дата выхода: {{game.release_date|date:"d F, Y."}}</li>
+            <hr>
+    {% endfor %}
+</code>
+{% endblock %}

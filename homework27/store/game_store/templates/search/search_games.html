@@ -1,0 +1,16 @@
+{% extends  'base.html'%}
+
+{% block content %}
+    <center>
+    {% if searched %}
+        <h1>Вы искали: {{ searched }}</h1>
+        <br/>
+        {% for game in games %}
+            <a href="{% url 'game:game_slug' game_slug=game.slug %}">{{ game }}</a><br/>
+        {% endfor %}
+    {% else %}
+        <h1>Игра не найдена</h1>
+    {% endif %}
+    </center>
+
+{% endblock %}
