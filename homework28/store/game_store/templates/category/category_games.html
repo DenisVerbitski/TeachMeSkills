@@ -1,0 +1,33 @@
+{% extends 'game_store/base.html' %}
+{% load static %}
+{% block title %}{{category}}{% endblock %}
+{% block content %}
+<code>
+{% if user.is_authenticated %}
+    {% for game in games %}
+        <div class="container text-center my-5">
+            <h2 class="fw-light">Жанр: {{category.name}}</h2><br>
+            <div class="row">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <img class="rounded" style="width: 500px; height: 600px; object-fit: cover;" src={{game.game_image.url}} alt={{game.name}}/>
+                    <div>
+                        <br>
+                        <h5><a href="{% url 'game:game_slug' game_slug=game.slug %}">{{game.name}}</a></h5>
+                        <strong>Цена:</strong>
+                        {{game.price}}
+                        <strong>руб</strong><br>
+                        <strong>Дата выхода:</strong>
+                        {{game.release_date|date:"d F, Y."}}<hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>Извините, для просмотра игр вы должны быть зарегистрированны... </h1>
+    <a href="{% url 'user:register_user' %}" class="btn btn-outline-warning">Зарегистрироваться</a>
+    <br/><br/>
+    <a href="{% url 'user:login' %}" class="btn btn-outline-warning">Войти в Систему</a>
+{% endif %}
+</code>
+{% endblock %}

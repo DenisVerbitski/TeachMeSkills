@@ -1,0 +1,18 @@
+{% extends 'game_store/base.html' %}
+{% load static %}
+{% block title %}Comment Update{% endblock %}
+
+{% block content %}
+<code>
+    {% if user.is_authenticated %}
+        {% if user == comment.user %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br/>
+                <input type="submit" value="Изменить" class="btn btn-outline-success">
+            </form>
+        {% endif %}
+    {% endif %}
+</code>
+{% endblock %}
