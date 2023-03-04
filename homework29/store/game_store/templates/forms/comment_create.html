@@ -1,0 +1,21 @@
+{% extends 'game_store/base.html' %}
+{% load static %}
+{% block title %}Comment Add{% endblock %}
+
+{% block content %}
+<code>
+    {% if user.is_authenticated %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br/>
+            <input type="submit" value="Сохранить" class="btn btn-outline-success"">
+        </form>
+    {% else %}
+        <h1>Извините, чтобы оставить комментарий вы должны быть зарегистрированны... </h1>
+        <a href="{% url 'user:register_user' %}" class="btn btn-outline-warning">Зарегистрироваться</a>
+        <br/><br/>
+        <a href="{% url 'user:login' %}" class="btn btn-outline-warning">Войти в Систему</a>
+    {% endif %}
+</code>
+{% endblock %}

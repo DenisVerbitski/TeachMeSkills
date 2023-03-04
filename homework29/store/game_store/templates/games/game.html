@@ -1,0 +1,53 @@
+{% extends  'game_store/base.html'%}
+{% load static %}
+{% block title %}{{game.name}}{% endblock %}
+
+{% block content %}
+<code>
+    <div class="container my-5">
+        <h1 class="fw-light">{{game.name}}</h1><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <img class="rounded" style="width: 500px; height: 600px; object-fit: cover;" src={{game.game_image.url}} alt={{game.name}}/>
+                <div>
+                    <br>
+                    <h5>{{game.name}}</h5><br>
+
+                    {% if average_grade %}
+                        <h6>Оценка игры: {{average_grade|floatformat:1}}</h6>
+                    {% else %}
+                        <h6>Оценки пока нет...</h6>
+                    {% endif %}
+                    
+                    <strong>Жанры:</strong>
+                    {{game.category}}<br>
+                    <strong>Цена:</strong>
+                    {{game.price}}
+                    <strong>руб</strong><br>
+                    <strong>Дата выхода:</strong>
+                    {{game.release_date|date:"d F, Y."}}<hr>
+                </div>
+                <br>
+                <strong><h5>Описание:</h5></strong>
+                <p>{{game.description}}</p><hr>
+                <a href="{% url 'game:comment_add' game_slug=game.slug %}" class="btn btn-outline-primary">Оставить комментарий</a><br/><br/>
+                <h2>{{ comments.count }} Comments</h2>
+                {% for comment in comments %}
+                        <strong>{{comment.user}}</strong>
+                        {{comment.text | linebreaks}}
+                    {% if user.is_authenticated %}
+                        <div class="card-footer text-muted">
+                            {% if user == comment.user %}
+                                <a href="{% url 'game:comment_update' comment.id %}" class="btn btn-outline-warning">Изменить комментарий</a>
+                                |
+                                <a href="{% url 'game:comment_delete' comment.id %}" class="btn btn-outline-warning">Удалить комментарий</a>
+                            {% endif %}
+                        </div><br/>
+                    {% endif %}
+                {% endfor %}
+                <hr>
+            </div>
+        </div>
+    </div>
+</code>
+{% endblock %}
