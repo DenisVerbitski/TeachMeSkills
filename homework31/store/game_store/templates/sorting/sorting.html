@@ -1,0 +1,19 @@
+{% extends 'game_store/base.html' %}
+{% block title %}Sorting{% endblock %}
+
+{% block content %}
+<br>
+    {% for sort in games %}
+        <div class="container">
+            <img class="rounded" style="width: 500px; height: 500px; object-fit: cover;" src={{sort.game_image.url}} alt="Name" />
+            <br><br>
+            <h5><a href="{% url 'game:game_slug' game_slug=sort.slug %}" class="text-info">{{sort.name}}</a></h5>
+            <ul>
+                <li>Жанр: {{sort.category}}</li>
+                <li>Цена: {{sort.price}} руб</li>
+                <li>Дата выхода: {{sort.release_date|date:"d F, Y."}}</li>
+            </ul>
+            <hr>
+        </div>
+    {% endfor %}
+{% endblock %}
