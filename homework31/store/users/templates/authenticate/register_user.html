@@ -1,0 +1,18 @@
+{% extends  'game_store/base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container">
+<br/>
+    <h1>Register</h1>
+    <br/>
+    <div class="col-7 mb-4">
+        <form action="{% url 'user:register_user' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Регистрация" class="btn btn-outline-success">
+        </form>
+    </div>
+<br/><br/>
+</div>
+{% endblock %}

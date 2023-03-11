@@ -1,0 +1,45 @@
+{% extends  'game_store/base.html'%}
+{% block title %}{{game.name}}{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <p>Вы просматривали эту страницу: {{visits}} раз,  последний — {{ last }}.</p>
+        <div class="img2 col-lg-5 mt-5">
+            <img src="{{game.game_image.url}}" class="rounded-3" style="width: 600px; height: 600px; object-fit: cover;"  alt={{game.name}}/><br><br>
+            <ul>
+                {% if average_grade %}
+                    <h6>Оценка игры: {{average_grade|floatformat:1}}</h6>
+                {% else %}
+                    <h6>Оценки пока нет...</h6>
+                {% endif %}
+                <li>Жанр: {{game.category}}</li>
+                <li>Цена: {{game.price}} руб</li>
+                <li>Дата выхода: {{game.release_date|date:"d F. Y."}}</li>
+            </ul>
+            <hr>
+            <a href="{% url 'game:comment_add' game_slug=game.slug %}" class="btn btn-outline-primary">Оставить комментарий</a><br/><br/>
+            <h2>{{ comments.count }} Comments</h2>
+        {% for comment in comments %}
+                <strong>{{comment.user}}</strong>
+                <p>{{comment.text|wordwrap:100|linebreaks}}</p>
+            {% if user.is_authenticated %}
+                <div class="card-footer text-muted">
+                    {% if user == comment.user %}
+                        <a href="{% url 'game:comment_update' comment.id %}">Изменить комментарий</a>
+                        |
+                        <a href="{% url 'game:comment_delete' comment.id %}">Удалить комментарий</a>
+                    {% endif %}
+                </div><br/>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="gamedetail col-lg-5">
+            <br>
+            <h1 style="font-family: Georgia; font-size: 50px;">{{game.name}}</h1>
+            <br><h5>Описание:</h5>
+            <p>{{game.description}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

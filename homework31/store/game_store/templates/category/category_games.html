@@ -1,0 +1,19 @@
+{% extends 'game_store/base.html' %}
+{% block title %}{{category}}{% endblock %}
+
+{% block content %}
+<br>
+{% for game in games %}
+<div class="container">
+    <h2 class="fw-light">Жанр: {{category.name}}</h2><br>
+    <img class="rounded" style="width: 500px; height: 500px; object-fit: cover;" src={{game.game_image.url}} alt={{game.name}}/>
+    <br><br>
+    <h5><a href="{% url 'game:game_slug' game_slug=game.slug %}" class="text-info">{{game.name}}</a></h5>
+        <ul>
+            <li>Цена: {{game.price}} руб</li>
+            <li>Дата выхода: {{game.release_date|date:"d F, Y."}}</li>
+        </ul>
+        <hr>
+</div>
+{% endfor %}
+{% endblock %}
