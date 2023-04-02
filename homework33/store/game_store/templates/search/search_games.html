@@ -1,0 +1,17 @@
+{% extends  'game_store/base.html'%}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    <center>
+        <br>
+    {% if searched %}
+        <h1>Вы искали: {{ searched }}</h1>
+        <br/>
+        {% for game in games %}
+            <a href="{% url 'game:game_slug' game_slug=game.slug %}" class="btn btn-outline-info">{{ game }}</a><br/><br/>
+        {% endfor %}
+    {% else %}
+        <h1>Такой игры нет</h1>
+    {% endif %}
+    </center>
+{% endblock %}

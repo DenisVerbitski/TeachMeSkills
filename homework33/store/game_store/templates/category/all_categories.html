@@ -1,0 +1,14 @@
+{% extends 'game_store/base.html' %}
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<br>
+{% for category in categories %}
+<div class="container">
+    <h1 class="fw-light"><a href="{% url 'game:category_games' category_slug=category.slug %}" class="text-info">{{category.name}}</a></h1>
+        <h5>Описание:</h5>
+        <p>{{category.description|safe}}</p>
+        <hr>
+</div>
+{% endfor %}
+{% endblock %}

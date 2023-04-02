@@ -1,0 +1,24 @@
+{% extends  'game_store/base.html' %}
+{% load socialaccount %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+<br>
+    <h1>Login</h1>
+    <br/>
+        <form action="" method="POST">
+            {% csrf_token %}
+                <div class="col-7 mb-4">
+                    <label for="exampleInputEmail1" class="form-label">Имя:</label>
+                    <input type="text" class="form-control" name="username">
+                    <label for="exampleInputPassword1" class="form-label">Пароль:</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+            <input type="submit" value="Войти" class="btn btn-outline-success">
+            <br/><br/>
+            <a href="{% provider_login_url  'github' %}" class="btn btn-outline-warning me-2">GitHub</a>
+            <a href="{% provider_login_url  'google'  %}" class="btn btn-outline-warning">Google</a>
+        </form>
+</div>
+{% endblock %}

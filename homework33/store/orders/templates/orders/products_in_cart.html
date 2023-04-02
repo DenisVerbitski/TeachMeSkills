@@ -1,0 +1,32 @@
+{% extends 'game_store/base.html' %}
+{% block title %}Products in Cart{% endblock %}
+
+{% block content %}
+    {% if carts %}
+        <h1>Корзина</h1>
+                {% for item in carts %}
+                        <div <img src="{{item.product.game_image.url}}" alt={{item.product.name}} " height="200" width="200"/>
+                            </div>
+                            <div>
+                                <h5><a href="{% url 'game:game_slug' game_slug=item.product.slug %}" {{item.product.name}}</a></h5>
+                                <div>
+                                <label>Кол-во:</label>
+                                    <span>{{item.quantity}}</span><br>
+                                <label>Цена:</label>
+                                    <span>{{item.total_amount}} руб</span>
+                                </div>
+                                <div>
+                                    <a href="{% url 'orders:cart_remove' item.product.slug %}" class="btn btn-sm btn-secondary">Удалить из Kорзины</a>
+                                </div>
+                                </div>
+                                <hr>
+                            {% endfor %}>
+                            <h3>Общая Сумма</h3>
+                            <ul>
+                            <li>Итого:<span>{{amount}} руб.</span></li>
+                            </ul>
+                            <div><a href="{% url 'orders:cart_order' %}">Заказать</a></div>
+                            {% else %}
+                            <h1>Ваша корзина пуста</h1>
+                            {% endif %}
+{% endblock %}
