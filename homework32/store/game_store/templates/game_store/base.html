@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <ul>
+            <li>
+                <a href="{% url 'orders:products_in_cart' %}">Basket</a>
+            </li>
+            <li>
+                <a href="{% url 'game:games' %}">Games</a>
+            </li>
+            <li>
+                <a href="{% url 'game:all_categories' %}">Categories</a>
+            </li>
+            <li>
+                <a href="{% url 'game:sorting'%}?sort=name_asc">Sorting A-Z</a>
+            </li>
+            <li>
+                <a href="{% url 'game:sorting'%}?sort=name_desc">Sorting Z-A</a>
+            </li> 
+                
+        </ul>
+        <form class="d-flex me-lg-4" method="post" action="{% url 'game:search-games' %}">
+            {% csrf_token %}
+            <input  type="search" placeholder="Search Games" aria-label="Search" name="searched">
+            <button type="submit">Search</button>
+        </form>
+        <ul>
+            {% if user.is_authenticated %}
+            <li>
+                User: {{user.username.capitalize}}
+            <li>
+                <a href="{% url 'user:logout' %}">Logout</a>
+            </li>
+            <li>
+                <a href="{% url 'user:password_change' %}">Password Change</a>
+            </li>
+                {% else %}
+            <li>
+                <a href="{% url 'user:register_user' %}">Register</a>
+            </li>
+            <li>
+                <a href="{% url 'user:login' %}">Login</a>
+            </li>
+                {% endif %}
+        </ul>
+    </div>
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% block content %}
+{% endblock %}
+<footer>
+    <hr>
+    <p>&copy; Game Store {% now 'Y' %} || Copyright || Developer: Denis Verbitski</p>
+</footer>
+</body>
+</html>
