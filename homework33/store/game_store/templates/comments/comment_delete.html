@@ -1,0 +1,18 @@
+{% extends 'game_store/base.html' %}
+{% block title %}Comment Delete{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+    {% if user.is_authenticated %}
+        <h1 class="text-white">Удалить комментарий</h1>
+        <br>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p>Вы действительно хотите удалить комментарий: {{ comment.text }}?</p>
+            <br/>
+            <input type="submit" value="Да, удалить!" class="btn btn-outline-danger"/>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
